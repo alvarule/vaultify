@@ -1,0 +1,1 @@
+const String animationLoading = "assets/animations/loading.json";

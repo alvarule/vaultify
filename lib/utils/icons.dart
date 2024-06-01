@@ -1,0 +1,22 @@
+const String icoSearch = "assets/icons/search.svg";
+const String icoUserAct = "assets/icons/ico_user_active.svg";
+const String icoUserInAct = "assets/icons/ico_user_inactive.svg";
+const String icoPassAct = "assets/icons/ico_pass_active.svg";
+const String icoPassInAct = "assets/icons/ico_pass_inactive.svg";
+const String icoWebAct = "assets/icons/ico_web_active.svg";
+const String icoWebInAct = "assets/icons/ico_web_inactive.svg";
+const String icoCopy = "assets/icons/ico_copy.svg";
+const String icoBack = "assets/icons/ico_back.svg";
+const String icoEyeOpen = "assets/icons/ico_eye_open.svg";
+const String icoEyeClose = "assets/icons/ico_eye_close.svg";
+const String icoDelete = "assets/icons/ico_delete.svg";
+const String icoLogout = "assets/icons/ico_logout.svg";
+const String icoCamera = "assets/icons/ico_camera.svg";
+const String icoGallery= "assets/icons/ico_gallery.svg";
+const String icoPencil= "assets/icons/ico_pencil.svg";
+
+const String icoAllItems = "assets/icons/ico_allItems.svg";
+const String icoPasswords = "assets/icons/ico_lock.svg";
+const String icoBanks = "assets/icons/ico_bank.svg";
+const String icoATMCards = "assets/icons/ico_card.svg";
+const String icoNotes = "assets/icons/ico_notes.svg";
