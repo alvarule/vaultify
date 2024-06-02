@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "549169166067",
-    "project_id": "passwordmanager-9d18b",
-    "storage_bucket": "passwordmanager-9d18b.appspot.com"
+    "project_number": "27779424094",
+    "project_id": "vaultify-live",
+    "storage_bucket": "vaultify-live.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:549169166067:android:f574a826dfd69e96746986",
+        "mobilesdk_app_id": "1:27779424094:android:8d797cbee63f4a1043b9cf",
         "android_client_info": {
           "package_name": "com.example.password_manager"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDdGSPO9xgHrng-TLld-cYl6nAbTH9OBEo"
+          "current_key": "AIzaSyC4X5To_VrfiXLLE68c69e0ljf8uZEYGow"
         }
       ],
       "services": {

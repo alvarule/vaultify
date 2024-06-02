@@ -30,23 +30,25 @@ Vaultify is a secure and user-friendly password manager built using Flutter and 
 To get started with Vaultify, follow these steps:
 
 1. **Clone the Repository**
-   ```bash
+   ```
    git clone https://github.com/alvarule/vaultify.git
    cd vaultify
+   ```
 
 2. **Install Dependencies**
-    ```bash
+    ```
     flutter pub get
-
-3. **Set Up Firebase**
-- Sign in to your Firebase Console.
-- Create a new project.
-- Follow the instructions to add Firebase to your Flutter app (both Android and iOS).
-- In Firebase project, start Authentication service and enable Email/Password Sign-in method. Also start Firebase Database service and Storage service
-
-4. **Run the App**
+    ```
+    
+3. **Run the App**
     ```bash
-    flutter run
+    flutter run -d <device_id>
+    ```
+
+    To get the `device_id`:
+    ```bash
+    flutter devices
+    ```
 
 For any issues, please contact me at [athrvarule@gmail.com](mailto:athrvarule@gmail.com). 📧
 
