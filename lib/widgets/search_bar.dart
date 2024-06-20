@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:password_manager/providers/search_provider.dart';
-import 'package:password_manager/utils/colors.dart';
 
 class SearchBarWidget extends ConsumerStatefulWidget {
   const SearchBarWidget({super.key});
@@ -25,12 +24,12 @@ class _SearchBarWidgetState extends ConsumerState<SearchBarWidget> {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       width: double.infinity,
       decoration: BoxDecoration(
-        color: white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
         children: [
-          const Icon(Icons.search, color: secondary60),
+          Icon(Icons.search, color: Theme.of(context).hintColor),
           const SizedBox(width: 8),
           Expanded(
             child: TextField(
@@ -38,9 +37,10 @@ class _SearchBarWidgetState extends ConsumerState<SearchBarWidget> {
               onChanged: (value) {
                 ref.read(searchProvider.notifier).updateQuery(value);
               },
+              style: TextStyle(color: Theme.of(context).highlightColor),
               decoration: InputDecoration(
                 hintStyle: GoogleFonts.outfit(
-                  color: secondary60,
+                  color: Theme.of(context).hintColor,
                 ),
                 hintText: "Search your vaults",
                 border: InputBorder.none,
@@ -53,7 +53,7 @@ class _SearchBarWidgetState extends ConsumerState<SearchBarWidget> {
               searchController.clear();
               ref.read(searchProvider.notifier).updateQuery("");
             },
-            icon: const Icon(Icons.clear, color: secondary60),
+            icon: Icon(Icons.clear, color: Theme.of(context).hintColor),
           ),
         ],
       ),

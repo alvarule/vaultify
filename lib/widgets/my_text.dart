@@ -2,14 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:password_manager/utils/colors.dart';
 
 class MyText extends StatelessWidget {
   const MyText({
     super.key,
     required this.text,
     required this.fontSize,
-    this.color = white,
+    this.color = Colors.white,
     this.fontWeight = FontWeight.w400,
     this.textAlign = TextAlign.left,
   });

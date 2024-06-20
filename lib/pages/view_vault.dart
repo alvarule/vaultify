@@ -7,7 +7,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:password_manager/providers/category_provider.dart';
 import 'package:password_manager/providers/current_user_provider.dart';
-import 'package:password_manager/utils/colors.dart';
 import 'package:password_manager/utils/constants.dart';
 import 'package:password_manager/utils/icons.dart';
 import 'package:password_manager/utils/services.dart';
@@ -96,7 +95,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: gray,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 
       // Appbar
       appBar: AppBar(
@@ -105,10 +104,10 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_circle_left_rounded,
             size: 28,
-            color: secondary,
+            color: Theme.of(context).highlightColor,
           ),
         ),
         title: MyText(
@@ -120,7 +119,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                   : "View Vault",
           fontSize: 20,
           fontWeight: FontWeight.bold,
-          color: secondary,
+          color: Theme.of(context).highlightColor,
         ),
 
         // Button -> Delete
@@ -132,21 +131,21 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: const MyText(
+                    title: MyText(
                       text: "Confirm Deletion",
                       fontSize: 20,
-                      color: secondary,
+                      color: Theme.of(context).highlightColor,
                       fontWeight: FontWeight.w500,
                     ),
-                    backgroundColor: white,
-                    surfaceTintColor: white,
-                    content: const SingleChildScrollView(
+                    backgroundColor: Theme.of(context).cardColor,
+                    surfaceTintColor: Theme.of(context).cardColor,
+                    content: SingleChildScrollView(
                       child: ListBody(
                         children: <Widget>[
                           MyText(
                             text: 'Are you sure you want to delete this item?',
                             fontSize: 16,
-                            color: secondary,
+                            color: Theme.of(context).highlightColor,
                             fontWeight: FontWeight.w500,
                           ),
                         ],
@@ -154,20 +153,20 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                     ),
                     actions: <Widget>[
                       TextButton(
-                        child: const MyText(
+                        child: MyText(
                           text: 'Cancel',
                           fontSize: 16,
-                          color: secondary,
+                          color: Theme.of(context).highlightColor,
                           fontWeight: FontWeight.w500,
                         ),
                         onPressed: () =>
                             Navigator.of(context).pop(), // Close dialog
                       ),
                       TextButton(
-                        child: const MyText(
+                        child: MyText(
                           text: 'Delete',
                           fontSize: 16,
-                          color: secondary,
+                          color: Theme.of(context).highlightColor,
                           fontWeight: FontWeight.w500,
                         ),
                         onPressed: () async {
@@ -204,8 +203,8 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
             ),
         ],
         centerTitle: true,
-        backgroundColor: gray,
-        surfaceTintColor: Colors.transparent,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
       ),
 
       // Body
@@ -219,7 +218,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: white,
+                color: Theme.of(context).cardColor,
               ),
 
               // Form
@@ -229,23 +228,23 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Form Heading - Credential
-                    const MyText(
+                    MyText(
                       text: "Credential",
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: secondary,
+                      color: Theme.of(context).highlightColor,
                     ),
                     const SizedBox(height: 16),
 
                     // Category Dropdown Field
-                    const MyText(
+                    MyText(
                       text: "Select Category",
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      color: secondary60,
+                      color: Theme.of(context).hintColor,
                     ),
                     Theme(
-                      data: ThemeData(canvasColor: white),
+                      data: ThemeData(canvasColor: Theme.of(context).cardColor),
                       child: DropdownButtonFormField<String>(
                         enableFeedback: false,
                         value: _categoryInp,
@@ -271,28 +270,28 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                         style: GoogleFonts.outfit(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: secondary,
+                          color: Theme.of(context).highlightColor,
                         ),
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: primary,
+                              color: Theme.of(context).primaryColor,
                               width: 1.5,
                             ),
-                            borderRadius: BorderRadius.all(
+                            borderRadius: const BorderRadius.all(
                               Radius.circular(8),
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color.fromARGB(255, 204, 207, 212),
+                              color: Theme.of(context).hintColor,
                               width: 1.5,
                             ),
-                            borderRadius: BorderRadius.all(
+                            borderRadius: const BorderRadius.all(
                               Radius.circular(8),
                             ),
                           ),
-                          errorBorder: OutlineInputBorder(
+                          errorBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Colors.red,
                               width: 1.0,
@@ -301,7 +300,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                               Radius.circular(8),
                             ),
                           ),
-                          focusedErrorBorder: OutlineInputBorder(
+                          focusedErrorBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Colors.red,
                               width: 1.0,
@@ -310,7 +309,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                               Radius.circular(8),
                             ),
                           ),
-                          contentPadding: EdgeInsets.symmetric(
+                          contentPadding: const EdgeInsets.symmetric(
                             vertical: 12,
                             horizontal: 16,
                           ),
@@ -473,13 +472,13 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
             padding: MaterialStateProperty.all<EdgeInsets>(
               const EdgeInsets.symmetric(vertical: 12),
             ),
-            backgroundColor: MaterialStateProperty.all<Color>(primary),
+            backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
-            foregroundColor: MaterialStateProperty.all<Color>(white),
+            foregroundColor: MaterialStateProperty.all<Color>(Theme.of(context).focusColor),
           ),
           child: MyText(
             // Displaying button text conditionally depending on the mode
@@ -516,11 +515,11 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
           vault != null ? decryptSecret(vault!["password"], masterPass) : "";
       return [
         // Name Input Field
-        const MyText(
+        MyText(
           text: "Name",
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: secondary60,
+          color: Theme.of(context).hintColor,
         ),
         InputBox(
           // if mode -> view then disable the field
@@ -542,11 +541,11 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
         const SizedBox(height: 10),
 
         // Username Input Field
-        const MyText(
+        MyText(
           text: "Username",
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: secondary60,
+          color: Theme.of(context).hintColor,
         ),
         Stack(
           children: [
@@ -579,7 +578,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 right: 0,
                 child: IconButton(
                   icon: SvgPicture.asset(
-                    icoCopy,
+                    ThemeMode.system == ThemeMode.light ? icoCopyLight: icoCopyDark,
                     width: 24,
                   ),
                   onPressed: () {
@@ -592,11 +591,11 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
         const SizedBox(height: 10),
 
         // Password Input Field
-        const MyText(
+        MyText(
           text: "Password",
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: secondary60,
+          color: Theme.of(context).hintColor,
         ),
         Stack(
           children: [
@@ -656,7 +655,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 right: 0,
                 child: IconButton(
                   icon: SvgPicture.asset(
-                    icoCopy,
+                    ThemeMode.system == ThemeMode.light ? icoCopyLight: icoCopyDark,
                     width: 24,
                   ),
                   onPressed: () {
@@ -669,11 +668,11 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
         const SizedBox(height: 10),
 
         // Notes
-        const MyText(
+        MyText(
           text: "Notes",
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: secondary60,
+          color: Theme.of(context).hintColor,
         ),
         InputBox(
           // if mode -> view then disable the field
@@ -702,11 +701,11 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
           vault != null ? decryptSecret(vault!["ifsc"], masterPass) : "";
       return [
         // Bank Name Input Field
-        const MyText(
+        MyText(
           text: "Bank Name",
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: secondary60,
+          color: Theme.of(context).hintColor,
         ),
         InputBox(
           // if mode -> view then disable the field
@@ -727,11 +726,11 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
         const SizedBox(height: 10),
 
         // Account Type Input Field
-        const MyText(
+        MyText(
           text: "Account Type",
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: secondary60,
+          color: Theme.of(context).hintColor,
         ),
         InputBox(
           // if mode -> view then disable the field
@@ -752,11 +751,11 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
         const SizedBox(height: 10),
 
         // Account No Input Field
-        const MyText(
+        MyText(
           text: "Account No",
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: secondary60,
+          color: Theme.of(context).hintColor,
         ),
         Stack(
           children: [
@@ -815,7 +814,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 right: 0,
                 child: IconButton(
                   icon: SvgPicture.asset(
-                    icoCopy,
+                    ThemeMode.system == ThemeMode.light ? icoCopyLight: icoCopyDark,
                     width: 24,
                   ),
                   onPressed: () {
@@ -828,11 +827,11 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
         const SizedBox(height: 10),
 
         // IFSC Code Input Field
-        const MyText(
+        MyText(
           text: "IFSC Code",
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: secondary60,
+          color: Theme.of(context).hintColor,
         ),
         InputBox(
           // if mode -> view then disable the field
@@ -852,11 +851,11 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
         const SizedBox(height: 10),
 
         // Notes
-        const MyText(
+        MyText(
           text: "Notes",
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: secondary60,
+          color: Theme.of(context).hintColor,
         ),
         InputBox(
           // if mode -> view then disable the field
@@ -894,11 +893,11 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
           vault != null ? decryptSecret(vault!["upi_pin"], masterPass) : "";
       return [
         // Bank Name Input Field
-        const MyText(
+        MyText(
           text: "Bank",
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: secondary60,
+          color: Theme.of(context).hintColor,
         ),
         InputBox(
           // if mode -> view then disable the field
@@ -920,11 +919,11 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
         const SizedBox(height: 10),
 
         // Name on Card Input Field
-        const MyText(
+        MyText(
           text: "Name on Card",
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: secondary60,
+          color: Theme.of(context).hintColor,
         ),
         InputBox(
           // if mode -> view then disable the field
@@ -946,11 +945,11 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
         const SizedBox(height: 10),
 
         // Card Type Input Field
-        const MyText(
+        MyText(
           text: "Card Type",
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: secondary60,
+          color: Theme.of(context).hintColor,
         ),
         InputBox(
           // if mode -> view then disable the field
@@ -972,11 +971,11 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
         const SizedBox(height: 10),
 
         // Card No Input Field
-        const MyText(
+        MyText(
           text: "Card No",
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: secondary60,
+          color: Theme.of(context).hintColor,
         ),
         Stack(
           children: [
@@ -1035,7 +1034,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 right: 0,
                 child: IconButton(
                   icon: SvgPicture.asset(
-                    icoCopy,
+                    ThemeMode.system == ThemeMode.light ? icoCopyLight: icoCopyDark,
                     width: 24,
                   ),
                   onPressed: () {
@@ -1048,11 +1047,11 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
         const SizedBox(height: 10),
 
         // CVV Input Field
-        const MyText(
+        MyText(
           text: "CVV",
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: secondary60,
+          color: Theme.of(context).hintColor,
         ),
         Stack(
           children: [
@@ -1111,7 +1110,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 right: 0,
                 child: IconButton(
                   icon: SvgPicture.asset(
-                    icoCopy,
+                    ThemeMode.system == ThemeMode.light ? icoCopyLight: icoCopyDark,
                     width: 24,
                   ),
                   onPressed: () {
@@ -1124,11 +1123,11 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
         const SizedBox(height: 10),
 
         // Expiry Date Input Field
-        const MyText(
+        MyText(
           text: "Expiry Date",
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: secondary60,
+          color: Theme.of(context).hintColor,
         ),
         InputBox(
           // if mode -> view then disable the field
@@ -1148,11 +1147,11 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
         const SizedBox(height: 10),
 
         // ATM PIN Input Field
-        const MyText(
+        MyText(
           text: "ATM PIN",
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: secondary60,
+          color: Theme.of(context).hintColor,
         ),
         Stack(
           children: [
@@ -1211,7 +1210,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 right: 0,
                 child: IconButton(
                   icon: SvgPicture.asset(
-                    icoCopy,
+                    ThemeMode.system == ThemeMode.light ? icoCopyLight: icoCopyDark,
                     width: 24,
                   ),
                   onPressed: () {
@@ -1224,11 +1223,11 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
         const SizedBox(height: 10),
 
         // UPI PIN Input Field
-        const MyText(
+        MyText(
           text: "UPI PIN",
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: secondary60,
+          color: Theme.of(context).hintColor,
         ),
         Stack(
           children: [
@@ -1284,7 +1283,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 right: 0,
                 child: IconButton(
                   icon: SvgPicture.asset(
-                    icoCopy,
+                    ThemeMode.system == ThemeMode.light ? icoCopyLight: icoCopyDark,
                     width: 24,
                   ),
                   onPressed: () {
@@ -1297,11 +1296,11 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
         const SizedBox(height: 10),
 
         // Notes
-        const MyText(
+        MyText(
           text: "Notes",
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: secondary60,
+          color: Theme.of(context).hintColor,
         ),
         InputBox(
           // if mode -> view then disable the field
@@ -1324,11 +1323,11 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
     else if (category == categoryMap[Category.notes]["value"]) {
       return [
         // Notes Title Input Field
-        const MyText(
+        MyText(
           text: "Title",
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: secondary60,
+          color: Theme.of(context).hintColor,
         ),
         InputBox(
           // if mode -> view then disable the field
@@ -1350,11 +1349,11 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
         const SizedBox(height: 10),
 
         // Notes Input Field
-        const MyText(
+        MyText(
           text: "Notes",
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: secondary60,
+          color: Theme.of(context).hintColor,
         ),
         InputBox(
           // if mode -> view then disable the field

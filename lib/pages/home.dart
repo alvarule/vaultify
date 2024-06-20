@@ -6,7 +6,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:password_manager/pages/account.dart';
 import 'package:password_manager/pages/view_vault.dart';
 import 'package:password_manager/providers/current_user_provider.dart';
-import 'package:password_manager/utils/colors.dart';
 import 'package:password_manager/utils/constants.dart';
 import 'package:password_manager/utils/icons.dart';
 import 'package:password_manager/utils/services.dart';
@@ -34,7 +33,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           height: 300, // Adjust height as needed
           padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
-            color: white,
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(16.0),
           ),
           child: ListView.builder(
@@ -49,11 +48,15 @@ class _HomePageState extends ConsumerState<HomePage> {
                   context,
                   value['value'],
                 ),
-                leading: SvgPicture.asset(value['icon'], width: 18),
+                leading: SvgPicture.asset(
+                  value['icon'],
+                  width: 18,
+                  color: Theme.of(context).highlightColor,
+                ),
                 title: MyText(
                   text: value['value'],
                   fontSize: 20,
-                  color: secondary,
+                  color: Theme.of(context).highlightColor,
                   fontWeight: FontWeight.w500,
                 ),
               );
@@ -87,16 +90,16 @@ class _HomePageState extends ConsumerState<HomePage> {
     // if user has not done local authentication
     if (!_authenticated) {
       return Scaffold(
-        backgroundColor: white,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 
         // AppBar
         appBar: AppBar(
-          backgroundColor: primary,
-          surfaceTintColor: primary,
-          title: const MyText(
+          backgroundColor: Theme.of(context).primaryColor,
+          surfaceTintColor: Theme.of(context).primaryColor,
+          title: MyText(
             text: "Password Manager",
             fontSize: 24,
-            // color: white,
+            color: Theme.of(context).focusColor,
             fontWeight: FontWeight.w600,
           ),
           centerTitle: true,
@@ -119,7 +122,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   }
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(primary),
+                  backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
                   padding: MaterialStateProperty.all<EdgeInsets>(
                     const EdgeInsets.symmetric(
                       vertical: 8,
@@ -141,7 +144,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                   logout(context, ref);
                 },
                 style: ButtonStyle(
-                  // backgroundColor: MaterialStateProperty.all<Color>(primary),
                   padding: MaterialStateProperty.all<EdgeInsets>(
                     const EdgeInsets.symmetric(
                       vertical: 8,
@@ -149,10 +151,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                     ),
                   ),
                 ),
-                child: const MyText(
+                child: MyText(
                   text: "Logout",
                   fontSize: 20,
-                  color: secondary60,
+                  color: Theme.of(context).hintColor,
                   fontWeight: FontWeight.w500,
                 ),
               )
@@ -165,7 +167,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     // if user has done the local authentication
     else {
       return Scaffold(
-        backgroundColor: gray,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 
         // Appbar
         appBar: PreferredSize(
@@ -174,7 +176,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             padding: const EdgeInsets.all(8),
             child: AppBar(
               surfaceTintColor: Colors.transparent,
-              backgroundColor: gray,
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               leading: GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
@@ -186,6 +188,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 child: Hero(
                   tag: "account",
                   child: CircleAvatar(
+                    backgroundColor: Colors.transparent,
                     backgroundImage: NetworkImage(
                       ref
                           .watch(currentUserProvider)[CurrentUser.userProfile]
@@ -196,18 +199,18 @@ class _HomePageState extends ConsumerState<HomePage> {
               ),
               title: Column(
                 children: [
-                  const MyText(
+                  MyText(
                     text: "Welcome Back",
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
-                    color: secondary60,
+                    color: Theme.of(context).hintColor,
                   ),
                   MyText(
                     text: ref
                         .watch(currentUserProvider)[CurrentUser.name]
                         .toString(),
                     fontSize: 22,
-                    color: secondary,
+                    color: Theme.of(context).highlightColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ],
@@ -220,7 +223,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                   onPressed: () {
                     logout(context, ref);
                   },
-                  icon: SvgPicture.asset(icoLogout, width: 24),
+                  icon:
+                      SvgPicture.asset(icoLogout, width: 24, color: Theme.of(context).highlightColor),
                 )
               ],
             ),
@@ -242,12 +246,16 @@ class _HomePageState extends ConsumerState<HomePage> {
         // Button -> Add New Vault
         floatingActionButton: IconButton(
           icon: Container(
-            decoration: const BoxDecoration(
-              color: primary,
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
               shape: BoxShape.circle,
             ),
             padding: const EdgeInsets.all(12),
-            child: const Icon(Icons.add_rounded, size: 32, color: white),
+            child: Icon(
+              Icons.add_rounded,
+              size: 32,
+              color: Theme.of(context).focusColor,
+            ),
           ),
           onPressed: _openCategoryMenu,
         ),

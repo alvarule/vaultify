@@ -12,7 +12,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 
-import 'package:password_manager/utils/colors.dart';
 import 'package:password_manager/utils/constants.dart';
 import 'package:password_manager/utils/icons.dart';
 import 'package:password_manager/utils/images.dart';
@@ -250,20 +249,20 @@ class _AuthPageState extends ConsumerState<AuthPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: gray,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 
       // Appbar
       appBar: AppBar(
-        backgroundColor: gray,
-        surfaceTintColor: gray,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_circle_left_rounded,
             size: 28,
-            color: secondary,
+            color: Theme.of(context).highlightColor,
           ),
         ),
         title: MyText(
@@ -271,7 +270,7 @@ class _AuthPageState extends ConsumerState<AuthPage> {
           text: _isLogin ? "Login" : "Sign Up",
           fontSize: 32,
           fontWeight: FontWeight.w700,
-          color: secondary,
+          color: Theme.of(context).highlightColor,
         ),
         centerTitle: true,
       ),
@@ -291,7 +290,7 @@ class _AuthPageState extends ConsumerState<AuthPage> {
                   margin: const EdgeInsets.symmetric(vertical: 32),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: white,
+                    color: Theme.of(context).cardColor,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -319,11 +318,11 @@ class _AuthPageState extends ConsumerState<AuthPage> {
 
                       // Name Field
                       if (!_isLogin)
-                        const MyText(
+                        MyText(
                           text: "Name",
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
-                          color: secondary60,
+                          color: Theme.of(context).hintColor,
                         ),
                       if (!_isLogin)
                         InputBox(
@@ -347,11 +346,11 @@ class _AuthPageState extends ConsumerState<AuthPage> {
                       const SizedBox(height: 10),
 
                       // Email Field
-                      const MyText(
+                      MyText(
                         text: "Email",
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: secondary60,
+                        color: Theme.of(context).hintColor,
                       ),
                       InputBox(
                         enabled: true,
@@ -380,7 +379,7 @@ class _AuthPageState extends ConsumerState<AuthPage> {
                             : "Create Master Password",
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: secondary60,
+                        color: Theme.of(context).hintColor,
                       ),
                       InputBox(
                         text: "",
@@ -417,11 +416,11 @@ class _AuthPageState extends ConsumerState<AuthPage> {
 
                       // Confirm Password Field
                       if (!_isLogin)
-                        const MyText(
+                        MyText(
                           text: "Confirm Master Password",
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
-                          color: secondary60,
+                          color: Theme.of(context).hintColor,
                         ),
                       if (!_isLogin)
                         InputBox(
@@ -467,27 +466,26 @@ class _AuthPageState extends ConsumerState<AuthPage> {
                         const EdgeInsets.symmetric(vertical: 12),
                       ),
                       backgroundColor: _isAuthenticating
-                          ? MaterialStateProperty.all<Color>(primaryDark)
-                          : MaterialStateProperty.all<Color>(primary),
+                          ? MaterialStateProperty.all<Color>(Theme.of(context).primaryColorDark)
+                          : MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                      foregroundColor: MaterialStateProperty.all<Color>(white),
+                      foregroundColor: MaterialStateProperty.all<Color>(Theme.of(context).focusColor),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         // show loading while state is authenticating
                         if (_isAuthenticating)
-                          const SizedBox(
+                          SizedBox(
                             width: 15,
                             height: 15,
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                  Color.fromARGB(255, 255, 255, 255)),
+                              valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).focusColor),
                             ),
                           ),
                         if (_isAuthenticating) const SizedBox(width: 12),
@@ -495,7 +493,7 @@ class _AuthPageState extends ConsumerState<AuthPage> {
                           text: _isLogin ? "Login" : "Sign Up",
                           fontSize: 20,
                           fontWeight: FontWeight.w400,
-                          color: white,
+                          color: Theme.of(context).focusColor,
                         ),
                       ],
                     ),
@@ -512,7 +510,7 @@ class _AuthPageState extends ConsumerState<AuthPage> {
                           : "Already have an account!",
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: secondary,
+                      color: Theme.of(context).highlightColor,
                     ),
                     TextButton(
                       onPressed: () {
@@ -524,7 +522,7 @@ class _AuthPageState extends ConsumerState<AuthPage> {
                         text: _isLogin ? "Sign Up" : "Login",
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: primary,
+                        color: Theme.of(context).primaryColor,
                       ),
                     )
                   ],
@@ -612,7 +610,7 @@ class _UploadProfilePicState extends ConsumerState<UploadProfilePic> {
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: "Crop Image",
-          activeControlsWidgetColor: primary,
+          activeControlsWidgetColor: Theme.of(context).primaryColor,
         ),
         IOSUiSettings(
           title: "Crop Image",
@@ -642,16 +640,16 @@ class _UploadProfilePicState extends ConsumerState<UploadProfilePic> {
               width: double.infinity,
               height: double.infinity,
               child: _selectedImage == null
-                  ? Image.asset(user)
+                  ? const CircleAvatar(backgroundImage: AssetImage(user),)
                   : CircleAvatar(
                       backgroundImage: profilePic,
-                      backgroundColor: white,
+                      backgroundColor: Theme.of(context).cardColor,
                     ),
             ),
-            const Positioned(
+            Positioned(
               bottom: 0,
               right: 0,
-              child: Icon(Icons.mode_edit_outline_rounded),
+              child: Icon(Icons.mode_edit_outline_rounded, color: Theme.of(context).highlightColor),
             ),
           ],
         ),
@@ -666,11 +664,12 @@ class _UploadProfilePicState extends ConsumerState<UploadProfilePic> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          surfaceTintColor: Colors.white,
-          title: const MyText(
+          surfaceTintColor: Theme.of(context).cardColor,
+          backgroundColor: Theme.of(context).cardColor,
+          title: MyText(
             text: "Select Avatar",
             fontSize: 18,
-            color: secondary,
+            color: Theme.of(context).highlightColor,
             fontWeight: FontWeight.w500,
           ),
           content: StatefulBuilder(
@@ -696,7 +695,7 @@ class _UploadProfilePicState extends ConsumerState<UploadProfilePic> {
                         borderRadius: BorderRadius.circular(50),
                         border: Border.all(
                           color: selectedAvatarIdx == index
-                              ? primary
+                              ? Theme.of(context).primaryColor
                               : Colors.transparent,
                           width: 3.0,
                         ),
@@ -714,18 +713,18 @@ class _UploadProfilePicState extends ConsumerState<UploadProfilePic> {
           actions: [
             ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(primary),
+                backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
               ),
               onPressed: uploadProfile,
-              child: const MyText(
+              child: MyText(
                 text: "Upload",
                 fontSize: 18,
-                color: white,
+                color: Theme.of(context).focusColor,
               ),
             ),
             ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(primary),
+                backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
               ),
               onPressed: () {
                 setState(() {
@@ -740,10 +739,10 @@ class _UploadProfilePicState extends ConsumerState<UploadProfilePic> {
                   }
                 });
               },
-              child: const MyText(
+              child: MyText(
                 text: "Save",
                 fontSize: 18,
-                color: white,
+                color: Theme.of(context).focusColor,
               ),
             ),
           ],
@@ -759,6 +758,9 @@ class _UploadProfilePicState extends ConsumerState<UploadProfilePic> {
       context: context,
       builder: (context) {
         return Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).cardColor
+          ),
           constraints: BoxConstraints(
             maxHeight: MediaQuery.of(context).size.height * 0.2,
           ),
@@ -774,15 +776,15 @@ class _UploadProfilePicState extends ConsumerState<UploadProfilePic> {
                     child: Column(
                       children: [
                         IconButton(
-                          icon: SvgPicture.asset(icoGallery),
+                          icon: SvgPicture.asset(icoGallery, color: Theme.of(context).highlightColor,),
                           onPressed: () {
                             _getImage(ImageSource.gallery);
                           },
                         ),
-                        const MyText(
+                        MyText(
                           text: "Gallery",
                           fontSize: 14,
-                          color: secondary,
+                          color: Theme.of(context).highlightColor,
                           fontWeight: FontWeight.w500,
                         ),
                       ],
@@ -800,15 +802,15 @@ class _UploadProfilePicState extends ConsumerState<UploadProfilePic> {
                     child: Column(
                       children: [
                         IconButton(
-                          icon: SvgPicture.asset(icoCamera),
+                          icon: SvgPicture.asset(icoCamera, color: Theme.of(context).highlightColor),
                           onPressed: () {
                             _getImage(ImageSource.camera);
                           },
                         ),
-                        const MyText(
+                        MyText(
                           text: "Camera",
                           fontSize: 14,
-                          color: secondary,
+                          color: Theme.of(context).highlightColor,
                           fontWeight: FontWeight.w500,
                         ),
                       ],

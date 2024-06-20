@@ -8,7 +8,6 @@ import 'package:password_manager/pages/home.dart';
 import 'package:password_manager/pages/onboarding.dart';
 import 'package:password_manager/pages/splash.dart';
 import 'package:password_manager/providers/current_user_provider.dart';
-import 'package:password_manager/utils/colors.dart';
 import 'package:password_manager/widgets/my_text.dart';
 
 class PasswordManager extends ConsumerWidget {
@@ -22,11 +21,11 @@ class PasswordManager extends ConsumerWidget {
       builder: (context, snapshot) {
         // If any error occurred while checking the auth state
         if (snapshot.hasError) {
-          return const Center(
+          return Center(
             child: MyText(
               text: "Some Error Occurred..\nPlease try again\nFirst",
               fontSize: 20,
-              color: secondary,
+              color: Theme.of(context).highlightColor,
               fontWeight: FontWeight.w500,
             ),
           );
@@ -67,11 +66,11 @@ class PasswordManager extends ConsumerWidget {
               // if any error occurred during fetching user data from firebase firestore
               if (snapshot.hasError) {
                 // FirebaseAuth.instance.signOut();
-                return const Center(
+                return Center(
                   child: MyText(
                     text: "Some Error Occurred..\nPlease try again\nSecond",
                     fontSize: 20,
-                    color: secondary,
+                    color: Theme.of(context).highlightColor,
                     fontWeight: FontWeight.w500,
                   ),
                 );

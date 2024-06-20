@@ -9,7 +9,6 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:password_manager/pages/view_vault.dart';
 import 'package:password_manager/providers/category_provider.dart';
 import 'package:password_manager/providers/current_user_provider.dart';
-import 'package:password_manager/utils/colors.dart';
 import 'package:password_manager/utils/constants.dart';
 import 'package:password_manager/utils/icons.dart';
 import 'package:password_manager/utils/images.dart';
@@ -80,7 +79,9 @@ class _VaultState extends ConsumerState<Vault> {
         width: double.infinity,
         height: 90,
         decoration: BoxDecoration(
-            color: white, borderRadius: BorderRadius.circular(16)),
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(16),
+        ),
         child: Slidable(
           // Todo: Implement share action
           // startActionPane: ActionPane(
@@ -90,7 +91,7 @@ class _VaultState extends ConsumerState<Vault> {
           //       onPressed: (context) {},
           //       label: 'Share',
           //       icon: Icons.share_rounded,
-          //       foregroundColor: secondary,
+          //       foregroundColor: Theme.of(context).highlightColor,
           //     )
           //   ],
           // ),
@@ -98,26 +99,27 @@ class _VaultState extends ConsumerState<Vault> {
             motion: const DrawerMotion(),
             children: [
               SlidableAction(
+                backgroundColor: Theme.of(context).cardColor,
                 onPressed: (context) async {
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: const MyText(
+                      title: MyText(
                         text: "Confirm Deletion",
                         fontSize: 20,
-                        color: secondary,
+                        color: Theme.of(context).highlightColor,
                         fontWeight: FontWeight.w500,
                       ),
-                      backgroundColor: white,
-                      surfaceTintColor: white,
-                      content: const SingleChildScrollView(
+                      backgroundColor: Theme.of(context).cardColor,
+                      surfaceTintColor: Theme.of(context).cardColor,
+                      content: SingleChildScrollView(
                         child: ListBody(
                           children: <Widget>[
                             MyText(
                               text:
                                   'Are you sure you want to delete this item?',
                               fontSize: 16,
-                              color: secondary,
+                              color: Theme.of(context).highlightColor,
                               fontWeight: FontWeight.w500,
                             ),
                           ],
@@ -125,20 +127,20 @@ class _VaultState extends ConsumerState<Vault> {
                       ),
                       actions: <Widget>[
                         TextButton(
-                          child: const MyText(
+                          child: MyText(
                             text: 'Cancel',
                             fontSize: 16,
-                            color: secondary,
+                            color: Theme.of(context).highlightColor,
                             fontWeight: FontWeight.w500,
                           ),
                           onPressed: () =>
                               Navigator.of(context).pop(), // Close dialog
                         ),
                         TextButton(
-                          child: const MyText(
+                          child: MyText(
                             text: 'Delete',
                             fontSize: 16,
-                            color: secondary,
+                            color: Theme.of(context).highlightColor,
                             fontWeight: FontWeight.w500,
                           ),
                           onPressed: () async {
@@ -172,81 +174,79 @@ class _VaultState extends ConsumerState<Vault> {
                 },
                 label: 'Delete',
                 icon: Icons.delete_outline_rounded,
-                foregroundColor: primary,
+                foregroundColor: Colors.red,
               )
             ],
           ),
           child: ClipRect(
-            child: Container(
-              child: Row(
-                children: [
-                  // Thumbnail
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      width: 40,
-                      height: 40,
-                      color: gray,
-                      child: FadeInImage(
-                        placeholder: const AssetImage(placeholder),
-                        image: AssetImage(thumbnail),
-                      ),
+            child: Row(
+              children: [
+                // Thumbnail
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    width: 40,
+                    height: 40,
+                    color: Theme.of(context).focusColor,
+                    child: FadeInImage(
+                      placeholder: const AssetImage(placeholder),
+                      image: AssetImage(thumbnail),
                     ),
                   ),
-                  const SizedBox(width: 16),
+                ),
+                const SizedBox(width: 16),
 
-                  // Name of the Vault
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Name of the Vault
+                // Name of the Vault
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Name of the Vault
+                      MyText(
+                        text: decryptSecret(
+                            vault["name"],
+                            ref.read(
+                                currentUserProvider)[CurrentUser.masterPass]!),
+                        fontSize: 24,
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(context).highlightColor,
+                      ),
+
+                      // if category -> password then display the username
+                      if (vault["category"] ==
+                          categoryMap[Category.passwords]["value"])
                         MyText(
                           text: decryptSecret(
-                              vault["name"],
+                              vault["username"],
                               ref.read(currentUserProvider)[
                                   CurrentUser.masterPass]!),
-                          fontSize: 24,
+                          fontSize: 14,
                           fontWeight: FontWeight.w500,
-                          color: secondary,
+                          color: Theme.of(context).hintColor,
                         ),
-
-                        // if category -> password then display the username
-                        if (vault["category"] ==
-                            categoryMap[Category.passwords]["value"])
-                          MyText(
-                            text: decryptSecret(
-                                vault["username"],
-                                ref.read(currentUserProvider)[
-                                    CurrentUser.masterPass]!),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: secondary60,
-                          ),
-                      ],
-                    ),
+                    ],
                   ),
-                  const SizedBox(width: 16),
+                ),
+                const SizedBox(width: 16),
 
-                  // if category -> password then display copy button for copying password
-                  if (vault["category"] ==
-                      categoryMap[Category.passwords]["value"])
-                    IconButton(
-                      onPressed: () {
-                        authAndCopy(
-                            decryptSecret(
-                                vault["password"],
-                                ref.read(currentUserProvider)[
-                                    CurrentUser.masterPass]!),
-                            context,
-                            ref.read(
-                                currentUserProvider)[CurrentUser.masterPass]!);
-                      },
-                      icon: SvgPicture.asset(icoCopy),
-                    ),
-                ],
-              ),
+                // if category -> password then display copy button for copying password
+                if (vault["category"] ==
+                    categoryMap[Category.passwords]["value"])
+                  IconButton(
+                    onPressed: () {
+                      authAndCopy(
+                          decryptSecret(
+                              vault["password"],
+                              ref.read(currentUserProvider)[
+                                  CurrentUser.masterPass]!),
+                          context,
+                          ref.read(
+                              currentUserProvider)[CurrentUser.masterPass]!);
+                    },
+                    icon: SvgPicture.asset(ThemeMode.system == ThemeMode.light ? icoCopyLight: icoCopyDark),
+                  ),
+              ],
             ),
           ),
         ),

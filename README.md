@@ -12,19 +12,25 @@ Vaultify is a secure and user-friendly password manager built using Flutter and 
 - **Encrypted Storage**: Stores all your vault items in encrypted form using AES encryption to ensure maximum security. 🔒
 - **Biometric Authentication**: Use fingerprint or face recognition to access your vault quickly and securely. 👆
 - **Screenshot Blocking**: Prevent screenshots from being taken within the app to enhance privacy. 🚫📸
+- **Dark Mode**: Supports dark mode to reduce eye strain. 🌙
 
 ## Todo 📝
 - **Generate Password**: Implement a feature to generate strong and secure passwords. 🔑
 - **Autofill**: Enable autofill functionality for seamless login experiences. 📝
-- **Dark Mode**: Add support for dark mode to reduce eye strain. 🌙
 - **Share Vaults**: Allow users to share vault items securely with others. 🔗
 - **Social Sign Up**: Integrate sign-up options with Google, Facebook, and Apple for easier access. 🌐
 
 ## Screenshots 📸
 
+### Light Mode
 |  |  |  |  |  |  |
 | --- | --- | --- | --- | --- | --- |
-| ![Onboarding UI](screenshots/onboarding.jpg) | ![Sign Up UI](screenshots/sign-up.jpg) | ![Home Page UI](screenshots/home.jpg) | ![Create Vault UI](screenshots/create-vault.jpg) | ![Biometrics Authentication UI](screenshots/biometrics-auth.jpg) |  ![Account Settings UI](screenshots/account-settings.jpg) |
+| ![Onboarding UI](screenshots/onboarding-light.jpg) | ![Sign Up UI](screenshots/sign-up-light.jpg) | ![Home Page UI](screenshots/home-light.jpg) | ![Create Vault UI](screenshots/create-vault-light.jpg) | ![Biometrics Authentication UI](screenshots/biometrics-auth-light.jpg) |  ![Account Settings UI](screenshots/account-settings-light.jpg) |
+
+### Dark Mode
+|  |  |  |  |  |  |
+| --- | --- | --- | --- | --- | --- |
+| ![Onboarding UI](screenshots/onboarding-dark.jpg) | ![Sign Up UI](screenshots/login-dark.jpg) | ![Home Page UI](screenshots/home-dark.jpg) | ![Create Vault UI](screenshots/create-vault-dark.jpg) | ![Biometrics Authentication UI](screenshots/biometrics-auth-dark.jpg) |  ![Account Settings UI](screenshots/account-settings-dark.jpg) |
 
 ## Installation ⚙️
 To get started with Vaultify, follow these steps:

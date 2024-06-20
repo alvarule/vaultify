@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:password_manager/pages/auth.dart';
-import 'package:password_manager/utils/colors.dart';
 import 'package:password_manager/utils/images.dart';
 import 'package:password_manager/widgets/my_text.dart';
 
@@ -13,12 +12,12 @@ class OnboardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: gray,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 
       // Appbar
       appBar: AppBar(
-        surfaceTintColor: gray,
-        backgroundColor: gray,
+        surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
 
       // Body
@@ -32,22 +31,22 @@ class OnboardingPage extends StatelessWidget {
           ),
 
           // Onboarding Text
-          const MyText(
+          MyText(
             text: "Password Manage\nFrom Anywhere",
             textAlign: TextAlign.center,
             fontSize: 32,
             fontWeight: FontWeight.w800,
-            color: secondary,
+            color: Theme.of(context).highlightColor,
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: MyText(
               text:
                   "Keep your passwords in a secure private vault and simply access them with one click",
               textAlign: TextAlign.center,
               fontSize: 16,
               fontWeight: FontWeight.w600,
-              color: secondary60,
+              color: Theme.of(context).hintColor,
             ),
           ),
 
@@ -68,18 +67,18 @@ class OnboardingPage extends StatelessWidget {
                 padding: MaterialStateProperty.all<EdgeInsets>(
                   const EdgeInsets.symmetric(vertical: 12),
                 ),
-                backgroundColor: MaterialStateProperty.all<Color>(primary),
+                backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
                 ),
-                foregroundColor: MaterialStateProperty.all<Color>(white),
+                foregroundColor: MaterialStateProperty.all<Color>(Theme.of(context).focusColor),
               ),
-              child: const MyText(
+              child: MyText(
                 text: "Get Started",
                 fontSize: 20,
-                color: white,
+                color: Theme.of(context).focusColor,
               ),
             ),
           ),
@@ -88,11 +87,11 @@ class OnboardingPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const MyText(
+              MyText(
                 text: "I have an account!",
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: secondary,
+                color: Theme.of(context).highlightColor,
               ),
               TextButton(
                 onPressed: () {
@@ -102,11 +101,11 @@ class OnboardingPage extends StatelessWidget {
                     ),
                   );
                 },
-                child: const MyText(
+                child: MyText(
                   text: "Login",
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  color: primary,
+                  color: Theme.of(context).primaryColor,
                 ),
               )
             ],

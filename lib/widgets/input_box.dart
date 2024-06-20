@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:password_manager/utils/colors.dart';
 
 class InputBox extends StatelessWidget {
   InputBox({
@@ -64,26 +63,26 @@ class InputBox extends StatelessWidget {
       style: GoogleFonts.outfit(
         fontSize: 16,
         fontWeight: FontWeight.w600,
-        color: secondary,
+        color: Theme.of(context).highlightColor,
       ),
       decoration: InputDecoration(
         counterText: counterText,
         hintText: text,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
-        focusedBorder: const OutlineInputBorder(
+        focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: primary,
+            color: Theme.of(context).primaryColor,
             width: 1.5,
           ),
-          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
-        enabledBorder: const OutlineInputBorder(
+        enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Color.fromARGB(255, 204, 207, 212),
+            color: Theme.of(context).hintColor,
             width: 1.5,
           ),
-          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
         errorBorder: const OutlineInputBorder(
           borderSide: BorderSide(

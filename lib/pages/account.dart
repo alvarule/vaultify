@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:password_manager/pages/auth.dart';
 import 'package:password_manager/providers/current_user_provider.dart';
-import 'package:password_manager/utils/colors.dart';
 import 'package:password_manager/utils/constants.dart';
 import 'package:password_manager/utils/services.dart';
 import 'package:password_manager/widgets/my_text.dart';
@@ -16,28 +15,28 @@ class AccountPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: gray,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       // appbar
       appBar: AppBar(
-        backgroundColor: gray,
-        surfaceTintColor: gray,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
         // Button -> Back
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_circle_left_rounded,
             size: 28,
-            color: secondary,
+            color: Theme.of(context).highlightColor,
           ),
         ),
 
         // Title
-        title: const MyText(
+        title: MyText(
           text: "My Account",
           fontSize: 22,
-          color: secondary,
+          color: Theme.of(context).highlightColor,
           fontWeight: FontWeight.bold,
         ),
         centerTitle: true,
@@ -55,14 +54,14 @@ class AccountPage extends ConsumerWidget {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                    color: white, borderRadius: BorderRadius.circular(16)),
+                    color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(16)),
                 child: Row(
                   children: [
                     Hero(
                       tag: "account",
                       child: CircleAvatar(
                         radius: 36,
-                        backgroundColor: white,
+                        backgroundColor: Theme.of(context).cardColor,
                         backgroundImage: NetworkImage(
                           ref
                               .watch(
@@ -79,14 +78,14 @@ class AccountPage extends ConsumerWidget {
                           text:
                               ref.watch(currentUserProvider)[CurrentUser.name]!,
                           fontSize: 30,
-                          color: secondary,
+                          color: Theme.of(context).highlightColor,
                           fontWeight: FontWeight.w600,
                         ),
                         MyText(
                           text: ref
                               .watch(currentUserProvider)[CurrentUser.email]!,
                           fontSize: 16,
-                          color: secondary,
+                          color: Theme.of(context).highlightColor,
                           // fontWeight: FontWeight.w600,
                         ),
                       ],
@@ -130,18 +129,18 @@ class AccountPage extends ConsumerWidget {
                     padding: MaterialStateProperty.all<EdgeInsets>(
                       const EdgeInsets.symmetric(vertical: 12),
                     ),
-                    backgroundColor: MaterialStateProperty.all<Color>(primary),
+                    backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),
                       ),
                     ),
-                    foregroundColor: MaterialStateProperty.all<Color>(white),
+                    foregroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
                   ),
-                  child: const MyText(
+                  child: MyText(
                     text: "Change Master Password",
                     fontSize: 20,
-                    color: white,
+                    color: Theme.of(context).focusColor,
                   ),
                 ),
               ),

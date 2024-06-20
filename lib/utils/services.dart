@@ -9,7 +9,6 @@ import 'package:encrypt/encrypt.dart' as encrypt;
 
 import 'package:password_manager/providers/category_provider.dart';
 import 'package:password_manager/providers/current_user_provider.dart';
-import 'package:password_manager/utils/colors.dart';
 import 'package:password_manager/utils/constants.dart';
 import 'package:password_manager/widgets/input_box.dart';
 import 'package:password_manager/widgets/my_text.dart';
@@ -88,13 +87,13 @@ Future<bool> authenticate(BuildContext context, String masterPassHashed) async {
   final result = await showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      backgroundColor: white,
-      surfaceTintColor: white,
-      title: const MyText(
+      backgroundColor: Theme.of(context).cardColor,
+      surfaceTintColor: Theme.of(context).cardColor,
+      title: MyText(
         text: "Authenticate",
         fontSize: 22,
         fontWeight: FontWeight.w500,
-        color: secondary,
+        color: Theme.of(context).highlightColor,
         textAlign: TextAlign.center,
       ),
       content: Form(
@@ -102,10 +101,10 @@ Future<bool> authenticate(BuildContext context, String masterPassHashed) async {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const MyText(
+            MyText(
               text: "Master Password",
               fontSize: 16,
-              color: secondary60,
+              color: Theme.of(context).hintColor,
             ),
             InputBox(
               text: "",
@@ -150,21 +149,21 @@ Future<bool> authenticate(BuildContext context, String masterPassHashed) async {
                     }
                   }
                 },
-                child: const MyText(
+                child: MyText(
                   text: "Verify",
                   fontSize: 18,
-                  color: secondary,
+                  color: Theme.of(context).highlightColor,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               TextButton(
                 onPressed: () =>
                     Navigator.pop(context, false), // Cancel with false
-                child: const MyText(
+                child: MyText(
                   text: "Cancel",
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
-                  color: secondary,
+                  color: Theme.of(context).highlightColor,
                 ),
               ),
               if (isAvailable)
@@ -183,11 +182,11 @@ Future<bool> authenticate(BuildContext context, String masterPassHashed) async {
                       Navigator.pop(context, true);
                     }
                   },
-                  child: const MyText(
+                  child: MyText(
                     text: "Use Biometrics",
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
-                    color: secondary,
+                    color: Theme.of(context).highlightColor,
                   ),
                 ),
             ],
@@ -446,11 +445,12 @@ Future<bool> changeMasterPass(
   final result = await showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      surfaceTintColor: white,
-      title: const MyText(
+      backgroundColor: Theme.of(context).cardColor,
+      surfaceTintColor: Theme.of(context).cardColor,
+      title: MyText(
         text: "Change Master Password",
         fontSize: 22,
-        color: secondary,
+        color: Theme.of(context).highlightColor,
         fontWeight: FontWeight.w500,
         textAlign: TextAlign.center,
       ),
@@ -459,10 +459,10 @@ Future<bool> changeMasterPass(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const MyText(
+            MyText(
               text: "Old Master Password",
               fontSize: 16,
-              color: secondary60,
+              color: Theme.of(context).hintColor,
               fontWeight: FontWeight.w500,
             ),
             InputBox(
@@ -481,10 +481,10 @@ Future<bool> changeMasterPass(
                 oldPass = newValue;
               },
             ),
-            const MyText(
+            MyText(
               text: "New Master Password",
               fontSize: 16,
-              color: secondary60,
+              color: Theme.of(context).hintColor,
             ),
             InputBox(
               text: "",
@@ -507,10 +507,10 @@ Future<bool> changeMasterPass(
                 newPass = newValue;
               },
             ),
-            const MyText(
+            MyText(
               text: "Confirm New Master Password",
               fontSize: 16,
-              color: secondary60,
+              color: Theme.of(context).hintColor,
             ),
             InputBox(
               text: "",
@@ -540,11 +540,11 @@ Future<bool> changeMasterPass(
             children: [
               TextButton(
                 onPressed: () => Navigator.pop(context, false),
-                child: const MyText(
+                child: MyText(
                   text: "Cancel",
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
-                  color: secondary,
+                  color: Theme.of(context).highlightColor,
                 ),
               ),
               TextButton(
@@ -589,11 +589,11 @@ Future<bool> changeMasterPass(
                     }
                   }
                 },
-                child: const MyText(
+                child: MyText(
                   text: "Change",
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
-                  color: secondary,
+                  color: Theme.of(context).highlightColor,
                 ),
               ),
             ],
@@ -610,21 +610,21 @@ void logout(context, ref) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      title: const MyText(
+      backgroundColor: Theme.of(context).cardColor,
+      surfaceTintColor: Theme.of(context).cardColor,
+      title: MyText(
         text: "Confirm Logout",
         fontSize: 20,
-        color: secondary,
+        color: Theme.of(context).highlightColor,
         fontWeight: FontWeight.w500,
       ),
-      backgroundColor: white,
-      surfaceTintColor: white,
-      content: const SingleChildScrollView(
+      content: SingleChildScrollView(
         child: ListBody(
           children: <Widget>[
             MyText(
               text: 'Are you sure you want to logout?',
               fontSize: 16,
-              color: secondary,
+              color: Theme.of(context).highlightColor,
               fontWeight: FontWeight.w500,
             ),
           ],
@@ -632,19 +632,19 @@ void logout(context, ref) {
       ),
       actions: <Widget>[
         TextButton(
-          child: const MyText(
+          child: MyText(
             text: 'Cancel',
             fontSize: 16,
-            color: secondary,
+            color: Theme.of(context).highlightColor,
             fontWeight: FontWeight.w500,
           ),
           onPressed: () => Navigator.of(context).pop(), // Close dialog
         ),
         TextButton(
-          child: const MyText(
+          child: MyText(
             text: 'Logout',
             fontSize: 16,
-            color: secondary,
+            color: Theme.of(context).highlightColor,
             fontWeight: FontWeight.w500,
           ),
           onPressed: () async {

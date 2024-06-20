@@ -8,7 +8,6 @@ import 'package:password_manager/pages/splash.dart';
 import 'package:password_manager/providers/category_provider.dart';
 import 'package:password_manager/providers/current_user_provider.dart';
 import 'package:password_manager/providers/search_provider.dart';
-import 'package:password_manager/utils/colors.dart';
 import 'package:password_manager/utils/constants.dart';
 import 'package:password_manager/utils/services.dart';
 import 'package:password_manager/widgets/my_text.dart';
@@ -75,11 +74,11 @@ class _VaultListState extends ConsumerState<VaultList> {
         builder: (ctx, snapshot) {
           // if error occurred during fetching Vault items
           if (snapshot.hasError) {
-            return const Center(
+            return Center(
               child: MyText(
                 text: "Some Error Occurred",
                 fontSize: 20,
-                color: secondary,
+                color: Theme.of(context).highlightColor,
                 fontWeight: FontWeight.w500,
                 textAlign: TextAlign.center,
               ),
@@ -108,7 +107,7 @@ class _VaultListState extends ConsumerState<VaultList> {
                       ? "Your Vault is Empty"
                       : "No Vault Match Your Search",
                   fontSize: 20,
-                  color: secondary,
+                  color: Theme.of(context).highlightColor,
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.center,
                 ),
@@ -133,11 +132,11 @@ class _VaultListState extends ConsumerState<VaultList> {
                               vault["category"] !=
                               categoryMap[category]["value"],
                         )) {
-                      return const Center(
+                      return Center(
                         child: MyText(
                           text: 'No vault found in this category.',
                           fontSize: 20,
-                          color: secondary,
+                          color: Theme.of(context).highlightColor,
                         ),
                       );
                     }
@@ -173,11 +172,11 @@ class _VaultListState extends ConsumerState<VaultList> {
           }
 
           // Exceptional Case (never gonna occur)
-          return const Center(
+          return Center(
             child: MyText(
               text: "Exceptional Case",
               fontSize: 20,
-              color: secondary,
+              color: Theme.of(context).highlightColor,
               fontWeight: FontWeight.w500,
               textAlign: TextAlign.center,
             ),

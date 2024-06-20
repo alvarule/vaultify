@@ -10,8 +10,14 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
-        child: Lottie.asset(animationLoading, width: 50),
+        child: Lottie.asset(
+          ThemeMode.system == ThemeMode.light
+              ? animationLoadingLight
+              : animationLoadingDark,
+          width: 50,
+        ),
       ),
     );
   }
