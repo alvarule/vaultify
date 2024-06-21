@@ -9,13 +9,15 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(context) {
+    // Retrieve the current brightness of the system.
+    final Brightness currentBrightness = MediaQuery.of(context).platformBrightness;
+    final bool isLightMode = currentBrightness == Brightness.light;
+
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
         child: Lottie.asset(
-          ThemeMode.system == ThemeMode.light
-              ? animationLoadingLight
-              : animationLoadingDark,
+          isLightMode ? animationLoadingLight : animationLoadingDark,
           width: 50,
         ),
       ),

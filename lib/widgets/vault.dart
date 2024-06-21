@@ -54,6 +54,10 @@ class _VaultState extends ConsumerState<Vault> {
 
   @override
   Widget build(BuildContext context) {
+    // Retrieve the current brightness of the system.
+    final Brightness currentBrightness = MediaQuery.of(context).platformBrightness;
+    final bool isLightMode = currentBrightness == Brightness.light;
+
     return GestureDetector(
       // open ViewVault page of current vault in edit mode
       onTap: () async {
@@ -244,7 +248,7 @@ class _VaultState extends ConsumerState<Vault> {
                           ref.read(
                               currentUserProvider)[CurrentUser.masterPass]!);
                     },
-                    icon: SvgPicture.asset(ThemeMode.system == ThemeMode.light ? icoCopyLight: icoCopyDark),
+                    icon: SvgPicture.asset(isLightMode ? icoCopyLight: icoCopyDark),
                   ),
               ],
             ),

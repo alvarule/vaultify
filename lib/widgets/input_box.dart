@@ -7,7 +7,7 @@ class InputBox extends StatelessWidget {
   InputBox({
     super.key,
     this.text = "",
-    this.enabled,
+    required this.enabled,
     this.initialValue = "",
     this.enableSuggestions = false,
     this.textAlign = TextAlign.left,
@@ -29,7 +29,7 @@ class InputBox extends StatelessWidget {
   // Custom settings to set to TextFormField making it more generic
   final String text;
   final TextAlign textAlign;
-  final bool? enabled;
+  final bool enabled;
   final String initialValue;
   final bool enableSuggestions;
   final TextInputType keyboardType;
@@ -63,7 +63,7 @@ class InputBox extends StatelessWidget {
       style: GoogleFonts.outfit(
         fontSize: 16,
         fontWeight: FontWeight.w600,
-        color: Theme.of(context).highlightColor,
+        color: enabled ? Theme.of(context).highlightColor : Theme.of(context).hintColor,
       ),
       decoration: InputDecoration(
         counterText: counterText,
@@ -79,7 +79,7 @@ class InputBox extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Theme.of(context).hintColor,
+            color: Theme.of(context).unselectedWidgetColor,
             width: 1.5,
           ),
           borderRadius: const BorderRadius.all(Radius.circular(8)),
