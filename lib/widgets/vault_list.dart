@@ -20,7 +20,8 @@ class VaultList extends ConsumerStatefulWidget {
   ConsumerState<VaultList> createState() => _VaultListState();
 }
 
-class _VaultListState extends ConsumerState<VaultList> {
+class _VaultListState extends ConsumerState<VaultList>
+    with TickerProviderStateMixin {
   // Function to returned a filtered list of vault items based on the current search query
   List<QueryDocumentSnapshot<Map<String, dynamic>>> filterVaults(
     List<QueryDocumentSnapshot<Map<String, dynamic>>> data,
@@ -38,7 +39,7 @@ class _VaultListState extends ConsumerState<VaultList> {
         final docData = snapshot.data();
         return docData.entries.any((entry) {
           String field = entry.key.toString().toLowerCase();
-          
+
           if (field == "name" || field == "username") {
             // first decryption of the field value is needed
             String masterPass =
@@ -58,8 +59,35 @@ class _VaultListState extends ConsumerState<VaultList> {
     }
   }
 
+  // for FadeAnimation
+  late final AnimationController _controller;
+  late final Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+
+    _animation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeIn,
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Restart the FadeAnimation
+    _controller.reset();
+    _controller.forward();
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
 
@@ -74,24 +102,31 @@ class _VaultListState extends ConsumerState<VaultList> {
         builder: (ctx, snapshot) {
           // if error occurred during fetching Vault items
           if (snapshot.hasError) {
-            return Center(
-              child: MyText(
-                text: "Some Error Occurred",
-                fontSize: 20,
-                color: Theme.of(context).highlightColor,
-                fontWeight: FontWeight.w500,
-                textAlign: TextAlign.center,
+            return FadeTransition(
+              opacity: _animation,
+              child: Center(
+                child: MyText(
+                  text: "Some Error Occurred",
+                  fontSize: 20,
+                  color: Theme.of(context).highlightColor,
+                  fontWeight: FontWeight.w500,
+                  textAlign: TextAlign.center,
+                ),
               ),
             );
           }
 
           // if vault items are loading
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const SplashScreen();
+            return FadeTransition(
+              opacity: _animation,
+              child: const LoadingVaultList(),
+            );
           }
 
           // after successfully fetching vault items
           if (snapshot.hasData) {
+            // return const LoadingVaultList();
             final vaultItems = snapshot.data!.docs;
 
             // filtering vault items based on search query
@@ -101,72 +136,78 @@ class _VaultListState extends ConsumerState<VaultList> {
             // if Vault of current user is empty or if Search query does not match any vault item
             if (filteredVaultItems.isEmpty) {
               final q = ref.watch(searchProvider);
-              return Center(
-                child: MyText(
-                  text: q == ""
-                      ? "Your Vault is Empty"
-                      : "No Vault Match Your Search",
-                  fontSize: 20,
-                  color: Theme.of(context).highlightColor,
-                  fontWeight: FontWeight.w500,
-                  textAlign: TextAlign.center,
+              return FadeTransition(
+                opacity: _animation,
+                child: Center(
+                  child: MyText(
+                    text: q == ""
+                        ? "Your Vault is Empty"
+                        : "No Vault Match Your Search",
+                    fontSize: 20,
+                    color: Theme.of(context).highlightColor,
+                    fontWeight: FontWeight.w500,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               );
             }
 
             // if Vault of current user is not empty or search query matches any vault items
             else {
-              return ListView.builder(
-                // Add one for the empty item at the last just for some spacing
-                itemCount: filteredVaultItems.length + 1,
-                itemBuilder: (context, index) {
-                  // getting the currently selected cateoory
-                  final category = ref.watch(categoryProvider);
+              return FadeTransition(
+                opacity: _animation,
+                child: ListView.builder(
+                  // Add one for the empty item at the last just for some spacing
+                  itemCount: filteredVaultItems.length + 1,
+                  itemBuilder: (context, index) {
+                    // getting the currently selected cateoory
+                    final category = ref.watch(categoryProvider);
 
-                  // for last extra item for some spacing
-                  if (index == filteredVaultItems.length) {
-                    // if no items exists for the selected category
-                    if (category != Category.all &&
-                        filteredVaultItems.every(
-                          (vault) =>
-                              vault["category"] !=
-                              categoryMap[category]["value"],
-                        )) {
-                      return Center(
-                        child: MyText(
-                          text: 'No vault found in this category.',
-                          fontSize: 20,
-                          color: Theme.of(context).highlightColor,
-                        ),
-                      );
+                    // for last extra item for some spacing
+                    if (index == filteredVaultItems.length) {
+                      // if no items exists for the selected category
+                      if (category != Category.all &&
+                          filteredVaultItems.every(
+                            (vault) =>
+                                vault["category"] !=
+                                categoryMap[category]["value"],
+                          )) {
+                        return Center(
+                          child: MyText(
+                            text: 'No vault found in this category.',
+                            fontSize: 20,
+                            color: Theme.of(context).highlightColor,
+                          ),
+                        );
+                      }
+                      //
+                      else {
+                        // Spacer for bottom
+                        return const SizedBox(height: 80);
+                      }
                     }
-                    //
+
+                    // if items exists for current category
                     else {
-                      // Spacer for bottom
-                      return const SizedBox(height: 80);
-                    }
-                  }
+                      final vault = filteredVaultItems[index];
+                      // if current category -> All then display all items
+                      if (category == Category.all) {
+                        return Vault(vault: vault);
+                      }
 
-                  // if items exists for current category
-                  else {
-                    final vault = filteredVaultItems[index];
-                    // if current category -> All then display all items
-                    if (category == Category.all) {
-                      return Vault(vault: vault);
-                    }
+                      // else display items of the current category only
+                      else if (vault["category"] ==
+                          categoryMap[category]["value"]) {
+                        return Vault(vault: vault);
+                      }
 
-                    // else display items of the current category only
-                    else if (vault["category"] ==
-                        categoryMap[category]["value"]) {
-                      return Vault(vault: vault);
+                      // Hidden item for other categories
+                      else {
+                        return Container();
+                      }
                     }
-
-                    // Hidden item for other categories
-                    else {
-                      return Container();
-                    }
-                  }
-                },
+                  },
+                ),
               );
             }
           }
@@ -182,6 +223,75 @@ class _VaultListState extends ConsumerState<VaultList> {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class LoadingVaultList extends StatelessWidget {
+  const LoadingVaultList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: 7,
+      itemBuilder: (context, index) => Container(
+        padding: const EdgeInsets.all(16),
+        margin: const EdgeInsets.only(bottom: 8),
+        width: double.infinity,
+        height: 90,
+        decoration: BoxDecoration(
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: const Row(
+          children: [
+            Skeleton(
+              width: 45,
+              height: 45,
+            ),
+            SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 5),
+                  Skeleton(
+                    height: 20,
+                    width: 100,
+                  ),
+                  SizedBox(height: 10),
+                  Skeleton(
+                    width: 200,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Skeleton extends StatelessWidget {
+  const Skeleton({
+    super.key,
+    this.width,
+    this.height,
+  });
+
+  final double? width, height;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: height,
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        borderRadius: BorderRadius.circular(16),
       ),
     );
   }
