@@ -8,6 +8,7 @@ Vaultify is a secure and user-friendly password manager built using Flutter and 
 - **Set Profile Pic as Avatar**: Choose an avatar from a predefined set or upload your own profile picture. 🖼️
 - **Manage Vault Items**: Create, edit, and delete vault items effortlessly. 🗂️
 - **Categorization**: Organize your vault items into categories such as Passwords, Bank Accounts, ATM Cards, and Notes. 📂
+- **Generate Password**: Implement a feature to generate strong and secure passwords. 🔑
 - **Copy Functionality**: Copy usernames and passwords with a single tap. 📋
 - **Encrypted Storage**: Stores all your vault items in encrypted form using AES encryption to ensure maximum security. 🔒
 - **Biometric Authentication**: Use fingerprint or face recognition to access your vault quickly and securely. 👆
@@ -15,7 +16,6 @@ Vaultify is a secure and user-friendly password manager built using Flutter and 
 - **Dark Mode**: Supports dark mode to reduce eye strain. 🌙
 
 ## Todo 📝
-- **Generate Password**: Implement a feature to generate strong and secure passwords. 🔑
 - **Autofill**: Enable autofill functionality for seamless login experiences. 📝
 - **Share Vaults**: Allow users to share vault items securely with others. 🔗
 - **Social Sign Up**: Integrate sign-up options with Google, Facebook, and Apple for easier access. 🌐
