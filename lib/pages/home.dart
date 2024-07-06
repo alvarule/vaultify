@@ -10,6 +10,7 @@ import 'package:password_manager/utils/constants.dart';
 import 'package:password_manager/utils/icons.dart';
 import 'package:password_manager/utils/services.dart';
 import 'package:password_manager/widgets/category_row.dart';
+import 'package:password_manager/widgets/generate_password_card.dart';
 import 'package:password_manager/widgets/my_text.dart';
 import 'package:password_manager/widgets/search_bar.dart';
 import 'package:password_manager/widgets/vault_list.dart';
@@ -122,7 +123,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                   }
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      Theme.of(context).primaryColor),
                   padding: MaterialStateProperty.all<EdgeInsets>(
                     const EdgeInsets.symmetric(
                       vertical: 8,
@@ -221,11 +223,29 @@ class _HomePageState extends ConsumerState<HomePage> {
               actions: [
                 IconButton(
                   onPressed: () {
+                    showModalBottomSheet(
+                      context: context,
+                      useSafeArea: true,
+                      isScrollControlled: true,
+                      builder: (context) => const GeneratePasswordCard(),
+                    );
+                  },
+                  icon: SvgPicture.asset(
+                    icoGeneratePass,
+                    width: 24,
+                    color: Theme.of(context).highlightColor,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
                     logout(context, ref);
                   },
-                  icon:
-                      SvgPicture.asset(icoLogout, width: 24, color: Theme.of(context).highlightColor),
-                )
+                  icon: SvgPicture.asset(
+                    icoLogout,
+                    width: 24,
+                    color: Theme.of(context).highlightColor,
+                  ),
+                ),
               ],
             ),
           ),

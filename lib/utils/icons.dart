@@ -12,6 +12,7 @@ const String icoEyeOpen = "assets/icons/ico_eye_open.svg";
 const String icoEyeClose = "assets/icons/ico_eye_close.svg";
 const String icoDelete = "assets/icons/ico_delete.svg";
 const String icoLogout = "assets/icons/ico_logout.svg";
+const String icoGeneratePass = "assets/icons/ico_generate_pass.svg";
 const String icoCamera = "assets/icons/ico_camera.svg";
 const String icoGallery= "assets/icons/ico_gallery.svg";
 const String icoPencil= "assets/icons/ico_pencil.svg";

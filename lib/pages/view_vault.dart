@@ -19,11 +19,13 @@ class ViewVaultPage extends ConsumerStatefulWidget {
     this.vault,
     required this.mode, // mode - create / view / edit
     required this.category,
+    this.generatedPassword,
   });
 
   final QueryDocumentSnapshot? vault;
   final VaultMode mode;
   final String category;
+  final String? generatedPassword;
 
   @override
   ConsumerState<ViewVaultPage> createState() => _ViewVaultPageState();
@@ -95,7 +97,8 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
   @override
   Widget build(BuildContext context) {
     // Retrieve the current brightness of the system.
-    final Brightness currentBrightness = MediaQuery.of(context).platformBrightness;
+    final Brightness currentBrightness =
+        MediaQuery.of(context).platformBrightness;
     final bool isLightMode = currentBrightness == Brightness.light;
 
     return Scaffold(
@@ -203,7 +206,11 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                   ),
                 );
               },
-              icon: SvgPicture.asset(icoDelete, width: 24, color: Theme.of(context).highlightColor,),
+              icon: SvgPicture.asset(
+                icoDelete,
+                width: 24,
+                color: Theme.of(context).highlightColor,
+              ),
             ),
         ],
         centerTitle: true,
@@ -476,13 +483,15 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
             padding: MaterialStateProperty.all<EdgeInsets>(
               const EdgeInsets.symmetric(vertical: 12),
             ),
-            backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
+            backgroundColor: MaterialStateProperty.all<Color>(
+                Theme.of(context).primaryColor),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
-            foregroundColor: MaterialStateProperty.all<Color>(Theme.of(context).focusColor),
+            foregroundColor:
+                MaterialStateProperty.all<Color>(Theme.of(context).focusColor),
           ),
           child: MyText(
             // Displaying button text conditionally depending on the mode
@@ -515,8 +524,9 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
     if (category == categoryMap[Category.passwords]["value"]) {
       String username =
           vault != null ? decryptSecret(vault!["username"], masterPass) : "";
-      String password =
-          vault != null ? decryptSecret(vault!["password"], masterPass) : "";
+      String password = vault != null
+          ? decryptSecret(vault!["password"], masterPass)
+          : widget.generatedPassword ?? "";
       return [
         // Name Input Field
         MyText(
@@ -563,7 +573,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 icon: SvgPicture.asset(
                   icoUserInAct,
                   width: 20,
-                  color: Theme.of(context).hintColor
+                  color: Theme.of(context).hintColor,
                 ),
                 onPressed: null,
               ),
@@ -583,7 +593,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 right: 0,
                 child: IconButton(
                   icon: SvgPicture.asset(
-                    isLightMode ? icoCopyLight: icoCopyDark,
+                    isLightMode ? icoCopyLight : icoCopyDark,
                     width: 24,
                   ),
                   onPressed: () {
@@ -615,7 +625,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 icon: SvgPicture.asset(
                   icoPassInAct,
                   width: 20,
-                  color: Theme.of(context).hintColor
+                  color: Theme.of(context).hintColor,
                 ),
               ),
               // Button -> Password visibility toggle
@@ -623,7 +633,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 icon: SvgPicture.asset(
                   _obscureTextPass ? icoEyeOpen : icoEyeClose,
                   width: 20,
-                  color: Theme.of(context).hintColor
+                  color: Theme.of(context).hintColor,
                 ),
                 onPressed: () async {
                   // if password is hidden then ask user to authenticate to make it visible
@@ -662,7 +672,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 right: 0,
                 child: IconButton(
                   icon: SvgPicture.asset(
-                    isLightMode ? icoCopyLight: icoCopyDark,
+                    isLightMode ? icoCopyLight : icoCopyDark,
                     width: 24,
                   ),
                   onPressed: () {
@@ -777,7 +787,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 icon: SvgPicture.asset(
                   icoUserInAct,
                   width: 20,
-                  color: Theme.of(context).hintColor
+                  color: Theme.of(context).hintColor,
                 ),
               ),
               // Button -> Password visibility toggle
@@ -785,7 +795,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 icon: SvgPicture.asset(
                   _obscureTextBank ? icoEyeOpen : icoEyeClose,
                   width: 20,
-                  color: Theme.of(context).hintColor
+                  color: Theme.of(context).hintColor,
                 ),
                 onPressed: () async {
                   // if field value is hidden then ask user to authenticate to make it visible
@@ -823,7 +833,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 right: 0,
                 child: IconButton(
                   icon: SvgPicture.asset(
-                    isLightMode ? icoCopyLight: icoCopyDark,
+                    isLightMode ? icoCopyLight : icoCopyDark,
                     width: 24,
                   ),
                   onPressed: () {
@@ -999,7 +1009,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 icon: SvgPicture.asset(
                   icoUserInAct,
                   width: 20,
-                  color: Theme.of(context).hintColor
+                  color: Theme.of(context).hintColor,
                 ),
               ),
               // Button -> Password visibility toggle
@@ -1007,7 +1017,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 icon: SvgPicture.asset(
                   _obscureTextCardNo ? icoEyeOpen : icoEyeClose,
                   width: 20,
-                  color: Theme.of(context).hintColor
+                  color: Theme.of(context).hintColor,
                 ),
                 onPressed: () async {
                   // if field value is hidden then ask user to authenticate to make it visible
@@ -1045,7 +1055,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 right: 0,
                 child: IconButton(
                   icon: SvgPicture.asset(
-                    isLightMode ? icoCopyLight: icoCopyDark,
+                    isLightMode ? icoCopyLight : icoCopyDark,
                     width: 24,
                   ),
                   onPressed: () {
@@ -1077,7 +1087,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 icon: SvgPicture.asset(
                   icoPassInAct,
                   width: 20,
-                  color: Theme.of(context).hintColor
+                  color: Theme.of(context).hintColor,
                 ),
               ),
               // Button -> Password visibility toggle
@@ -1085,7 +1095,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 icon: SvgPicture.asset(
                   _obscureTextCardCVV ? icoEyeOpen : icoEyeClose,
                   width: 20,
-                  color: Theme.of(context).hintColor
+                  color: Theme.of(context).hintColor,
                 ),
                 onPressed: () async {
                   // if field value is hidden then ask user to authenticate to make it visible
@@ -1123,7 +1133,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 right: 0,
                 child: IconButton(
                   icon: SvgPicture.asset(
-                    isLightMode ? icoCopyLight: icoCopyDark,
+                    isLightMode ? icoCopyLight : icoCopyDark,
                     width: 24,
                   ),
                   onPressed: () {
@@ -1179,7 +1189,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 icon: SvgPicture.asset(
                   icoPassInAct,
                   width: 20,
-                  color: Theme.of(context).hintColor
+                  color: Theme.of(context).hintColor,
                 ),
               ),
               // Button -> Password visibility toggle
@@ -1187,7 +1197,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 icon: SvgPicture.asset(
                   _obscureTextATMPIN ? icoEyeOpen : icoEyeClose,
                   width: 20,
-                  color: Theme.of(context).hintColor
+                  color: Theme.of(context).hintColor,
                 ),
                 onPressed: () async {
                   // if field value is hidden then ask user to authenticate to make it visible
@@ -1225,7 +1235,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 right: 0,
                 child: IconButton(
                   icon: SvgPicture.asset(
-                    isLightMode ? icoCopyLight: icoCopyDark,
+                    isLightMode ? icoCopyLight : icoCopyDark,
                     width: 24,
                   ),
                   onPressed: () {
@@ -1257,7 +1267,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 icon: SvgPicture.asset(
                   icoPassInAct,
                   width: 20,
-                  color: Theme.of(context).hintColor
+                  color: Theme.of(context).hintColor,
                 ),
               ),
               // Button -> Password visibility toggle
@@ -1265,7 +1275,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 icon: SvgPicture.asset(
                   _obscureTextUPIPIN ? icoEyeOpen : icoEyeClose,
                   width: 20,
-                  color: Theme.of(context).hintColor
+                  color: Theme.of(context).hintColor,
                 ),
                 onPressed: () async {
                   // if field value is hidden then ask user to authenticate to make it visible
@@ -1300,7 +1310,7 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                 right: 0,
                 child: IconButton(
                   icon: SvgPicture.asset(
-                    isLightMode ? icoCopyLight: icoCopyDark,
+                    isLightMode ? icoCopyLight : icoCopyDark,
                     width: 24,
                   ),
                   onPressed: () {
