@@ -1,3 +1,5 @@
+const String logo = "assets/logo.png";
+
 const String user = "assets/images/user.jpg";
 const String onboardingImg = "assets/images/onboarding_img.svg";
 const String userUploadProfile = "assets/images/user.jpg";

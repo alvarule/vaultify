@@ -33,7 +33,6 @@ class PasswordManager extends ConsumerWidget {
 
         // Showing SplashScreen while loading the app
         if (snapshot.connectionState == ConnectionState.waiting) {
-          Future.delayed(Duration(seconds: 2));
           return const SplashScreen();
         }
 

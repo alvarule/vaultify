@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:password_manager/widgets/my_text.dart';
 import 'firebase_options.dart';
 
 import 'package:password_manager/password_manager.dart';
@@ -42,8 +43,8 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.system,
-      home:
-          const PasswordManager(), // Set the PasswordManager widget as the initial screen
+      // Set the PasswordManager widget as the initial screen
+      home: const PasswordManager(),
     );
   }
 }
