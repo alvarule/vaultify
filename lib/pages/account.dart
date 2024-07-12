@@ -126,16 +126,16 @@ class AccountPage extends ConsumerWidget {
                     }
                   },
                   style: ButtonStyle(
-                    padding: MaterialStateProperty.all<EdgeInsets>(
+                    padding: WidgetStateProperty.all<EdgeInsets>(
                       const EdgeInsets.symmetric(vertical: 12),
                     ),
-                    backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    backgroundColor: WidgetStateProperty.all<Color>(Theme.of(context).primaryColor),
+                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),
                       ),
                     ),
-                    foregroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
+                    foregroundColor: WidgetStateProperty.all<Color>(Theme.of(context).primaryColor),
                   ),
                   child: MyText(
                     text: "Change Master Password",

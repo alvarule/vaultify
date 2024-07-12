@@ -462,18 +462,18 @@ class _AuthPageState extends ConsumerState<AuthPage> {
                   child: TextButton(
                     onPressed: !_isAuthenticating ? _authenticate : null,
                     style: ButtonStyle(
-                      padding: MaterialStateProperty.all<EdgeInsets>(
+                      padding: WidgetStateProperty.all<EdgeInsets>(
                         const EdgeInsets.symmetric(vertical: 12),
                       ),
                       backgroundColor: _isAuthenticating
-                          ? MaterialStateProperty.all<Color>(Theme.of(context).primaryColorDark)
-                          : MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          ? WidgetStateProperty.all<Color>(Theme.of(context).primaryColorDark)
+                          : WidgetStateProperty.all<Color>(Theme.of(context).primaryColor),
+                      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                      foregroundColor: MaterialStateProperty.all<Color>(Theme.of(context).focusColor),
+                      foregroundColor: WidgetStateProperty.all<Color>(Theme.of(context).focusColor),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -713,7 +713,7 @@ class _UploadProfilePicState extends ConsumerState<UploadProfilePic> {
           actions: [
             ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
+                backgroundColor: WidgetStateProperty.all<Color>(Theme.of(context).primaryColor),
               ),
               onPressed: uploadProfile,
               child: MyText(
@@ -724,7 +724,7 @@ class _UploadProfilePicState extends ConsumerState<UploadProfilePic> {
             ),
             ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
+                backgroundColor: WidgetStateProperty.all<Color>(Theme.of(context).primaryColor),
               ),
               onPressed: () {
                 setState(() {

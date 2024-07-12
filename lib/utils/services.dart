@@ -27,13 +27,14 @@ Future<void> copyToClipboard(String text, BuildContext context) async {
 // Function to encrypt secrets
 String encryptSecret(String secret, String key) {
   // if the secret is empty secret
-  if(secret==""){
+  if (secret == "") {
     return secret;
   }
 
-  final encryptionKey = encrypt.Key.fromUtf8(key.substring(0, 32)); // solve error -> key length
+  final encryptionKey =
+      encrypt.Key.fromUtf8(key.substring(0, 32)); // solve error -> key length
   final iv = encrypt.IV.fromLength(0);
-  
+
   final encrypter = encrypt.Encrypter(encrypt.AES(encryptionKey));
 
   // print(secret);
@@ -48,14 +49,15 @@ String encryptSecret(String secret, String key) {
 
 // Function to decrypt secrets
 String decryptSecret(String encrypted, String key) {
-  // if the encrypted is empty 
-  if(encrypted==""){
+  // if the encrypted is empty
+  if (encrypted == "") {
     return encrypted;
   }
-  
-  final encryptionKey = encrypt.Key.fromUtf8(key.substring(0, 32)); // solve error -> key length
+
+  final encryptionKey =
+      encrypt.Key.fromUtf8(key.substring(0, 32)); // solve error -> key length
   final iv = encrypt.IV.fromLength(0);
-  
+
   final decrypter = encrypt.Encrypter(encrypt.AES(encryptionKey));
 
   final decrypted = decrypter.decrypt16(encrypted, iv: iv);
@@ -83,6 +85,23 @@ Future<bool> authenticate(BuildContext context, String masterPassHashed) async {
   final isAvailable = await localAuth.canCheckBiometrics;
 
   String? password;
+
+  Future<void> useBiometric() async {
+    final authorized = await localAuth.authenticate(
+      localizedReason: "Please authenticate to copy",
+      options: const AuthenticationOptions(
+        stickyAuth: true,
+        biometricOnly: true,
+      ),
+    );
+
+    if (authorized) {
+      // Return true on successful authentication
+      Navigator.pop(context, true);
+    }
+  }
+
+  useBiometric();
 
   final result = await showDialog(
     context: context,
@@ -168,20 +187,7 @@ Future<bool> authenticate(BuildContext context, String masterPassHashed) async {
               ),
               if (isAvailable)
                 TextButton(
-                  onPressed: () async {
-                    final authorized = await localAuth.authenticate(
-                      localizedReason: "Please authenticate to copy",
-                      options: const AuthenticationOptions(
-                        stickyAuth: true,
-                        biometricOnly: true,
-                      ),
-                    );
-
-                    if (authorized) {
-                      // Return true on successful authentication
-                      Navigator.pop(context, true);
-                    }
-                  },
+                  onPressed: useBiometric,
                   child: MyText(
                     text: "Use Biometrics",
                     fontSize: 18,
@@ -201,7 +207,8 @@ Future<bool> authenticate(BuildContext context, String masterPassHashed) async {
 }
 
 // Function to authenticate user and then copy content to clipboard
-void authAndCopy(String text, BuildContext context, String masterPassHashed) async {
+void authAndCopy(
+    String text, BuildContext context, String masterPassHashed) async {
   // Use the authenticate function for authentication
   final isAuthenticated = await authenticate(context, masterPassHashed);
   if (isAuthenticated) {
@@ -243,7 +250,6 @@ Future<bool> createVault(
   String? notesNameInp,
   String? notesInp,
 ) async {
-
   Map<String, String> vault = {
     "uid": uid,
     "category": category,
@@ -355,7 +361,6 @@ Future<bool> editVault(
   String? notesNameInp,
   String? notesInp,
 ) async {
-  
   Map<String, String> vault;
 
   // if category - password
@@ -435,8 +440,8 @@ Future<bool> deleteVault(String vaultId) async {
 }
 
 // Function to change master password
-Future<bool> changeMasterPass(
-    BuildContext context, String uid, String email, String masterPassHashed) async {
+Future<bool> changeMasterPass(BuildContext context, String uid, String email,
+    String masterPassHashed) async {
   final formKey = GlobalKey<FormState>();
   String? oldPass;
   String? newPass;

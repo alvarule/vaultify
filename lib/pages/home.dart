@@ -25,7 +25,6 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-
   @override
   void initState() {
     super.initState();
@@ -159,9 +158,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ElevatedButton(
                   onPressed: _localAuthenticate,
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
+                    backgroundColor: WidgetStateProperty.all<Color>(
                         Theme.of(context).primaryColor),
-                    padding: MaterialStateProperty.all<EdgeInsets>(
+                    padding: WidgetStateProperty.all<EdgeInsets>(
                       const EdgeInsets.symmetric(
                         vertical: 8,
                         horizontal: 40,
@@ -182,7 +181,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     logout(context, ref);
                   },
                   style: ButtonStyle(
-                    padding: MaterialStateProperty.all<EdgeInsets>(
+                    padding: WidgetStateProperty.all<EdgeInsets>(
                       const EdgeInsets.symmetric(
                         vertical: 8,
                         horizontal: 40,
@@ -257,9 +256,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ],
                 ),
                 centerTitle: true,
-
-                // Button -> Logout
                 actions: [
+                  // Button -> Generate Password
                   IconButton(
                     onPressed: () {
                       showModalBottomSheet(
@@ -275,6 +273,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       color: Theme.of(context).highlightColor,
                     ),
                   ),
+                  // Button -> Logout
                   IconButton(
                     onPressed: () {
                       logout(context, ref);

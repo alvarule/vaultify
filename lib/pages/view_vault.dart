@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -262,20 +263,39 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
                         items: [
                           DropdownMenuItem(
                             value: categoryMap[Category.passwords]["value"],
-                            child:
-                                Text(categoryMap[Category.passwords]["value"]),
+                            child: MyText(
+                              text: categoryMap[Category.passwords]["value"],
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Theme.of(context).hintColor,
+                            ),
                           ),
                           DropdownMenuItem(
                             value: categoryMap[Category.banks]["value"],
-                            child: Text(categoryMap[Category.banks]["value"]),
+                            child: MyText(
+                              text: categoryMap[Category.banks]["value"],
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Theme.of(context).hintColor,
+                            ),
                           ),
                           DropdownMenuItem(
                             value: categoryMap[Category.cards]["value"],
-                            child: Text(categoryMap[Category.cards]["value"]),
+                            child: MyText(
+                              text: categoryMap[Category.cards]["value"],
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Theme.of(context).hintColor,
+                            ),
                           ),
                           DropdownMenuItem(
                             value: categoryMap[Category.notes]["value"],
-                            child: Text(categoryMap[Category.notes]["value"]),
+                            child: MyText(
+                              text: categoryMap[Category.notes]["value"],
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Theme.of(context).hintColor,
+                            ),
                           ),
                         ],
                         style: GoogleFonts.outfit(
@@ -480,18 +500,18 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
             }
           },
           style: ButtonStyle(
-            padding: MaterialStateProperty.all<EdgeInsets>(
+            padding: WidgetStateProperty.all<EdgeInsets>(
               const EdgeInsets.symmetric(vertical: 12),
             ),
-            backgroundColor: MaterialStateProperty.all<Color>(
+            backgroundColor: WidgetStateProperty.all<Color>(
                 Theme.of(context).primaryColor),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
             foregroundColor:
-                MaterialStateProperty.all<Color>(Theme.of(context).focusColor),
+                WidgetStateProperty.all<Color>(Theme.of(context).focusColor),
           ),
           child: MyText(
             // Displaying button text conditionally depending on the mode
@@ -781,6 +801,9 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
               enabled: !(mode == VaultMode.view),
               initialValue: accNo,
               keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly
+              ],
               obscureText: _obscureTextBank,
               prefixIcon: IconButton(
                 onPressed: null,
@@ -1003,6 +1026,9 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
               enabled: !(mode == VaultMode.view),
               initialValue: cardNo,
               keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly
+              ],
               obscureText: _obscureTextCardNo,
               prefixIcon: IconButton(
                 onPressed: null,
@@ -1081,6 +1107,9 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
               enabled: !(mode == VaultMode.view),
               initialValue: cvv,
               keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly
+              ],
               obscureText: _obscureTextCardCVV,
               prefixIcon: IconButton(
                 onPressed: null,
@@ -1183,6 +1212,9 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
               enabled: !(mode == VaultMode.view),
               initialValue: atmPin,
               keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly
+              ],
               obscureText: _obscureTextATMPIN,
               prefixIcon: IconButton(
                 onPressed: null,
@@ -1261,6 +1293,9 @@ class _ViewVaultPageState extends ConsumerState<ViewVaultPage> {
               enabled: !(mode == VaultMode.view),
               initialValue: upiPin,
               keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly
+              ],
               obscureText: _obscureTextUPIPIN,
               prefixIcon: IconButton(
                 onPressed: null,

@@ -1,6 +1,7 @@
 // Input Box with custom styling 
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class InputBox extends StatelessWidget {
@@ -12,6 +13,7 @@ class InputBox extends StatelessWidget {
     this.enableSuggestions = false,
     this.textAlign = TextAlign.left,
     this.keyboardType = TextInputType.text,
+    this.inputFormatters,
     this.autocorrect = false,
     this.textCapitalization = TextCapitalization.none,
     this.obscureText = false,
@@ -33,6 +35,7 @@ class InputBox extends StatelessWidget {
   final String initialValue;
   final bool enableSuggestions;
   final TextInputType keyboardType;
+  List<TextInputFormatter>? inputFormatters;
   final bool autocorrect;
   final TextCapitalization textCapitalization;
   final bool obscureText;
@@ -54,6 +57,7 @@ class InputBox extends StatelessWidget {
       enableSuggestions: enableSuggestions,
       textAlign: textAlign,
       keyboardType: keyboardType,
+      inputFormatters: inputFormatters,
       autocorrect: autocorrect,
       textCapitalization: textCapitalization,
       obscureText: obscureText,

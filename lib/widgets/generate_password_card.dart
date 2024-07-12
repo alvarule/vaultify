@@ -129,6 +129,15 @@ class _GeneratePasswordCardState extends ConsumerState<GeneratePasswordCard> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            // Title Text - Generate Password
+            MyText(
+              text: "Generate Secure Password",
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).highlightColor,
+            ),
+            const SizedBox(height: 60),
+            
             const Divider(thickness: 2),
 
             // Generated Password
@@ -281,17 +290,17 @@ class _GeneratePasswordCardState extends ConsumerState<GeneratePasswordCard> {
                   );
                 },
                 style: ButtonStyle(
-                  padding: MaterialStateProperty.all<EdgeInsets>(
+                  padding: WidgetStateProperty.all<EdgeInsets>(
                     const EdgeInsets.symmetric(vertical: 12),
                   ),
-                  backgroundColor: MaterialStateProperty.all<Color>(
+                  backgroundColor: WidgetStateProperty.all<Color>(
                       Theme.of(context).primaryColor),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  foregroundColor: MaterialStateProperty.all<Color>(
+                  foregroundColor: WidgetStateProperty.all<Color>(
                       Theme.of(context).focusColor),
                 ),
                 child: Row(
