@@ -218,6 +218,13 @@ class _AuthPageState extends ConsumerState<AuthPage> {
               content: Text("No Internet Connection"),
             ),
           );
+        } else if (error.code == "email-already-in-use") {
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Email ID already exists! Please login using the email provided"),
+            ),
+          );
         } else {
           ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(
